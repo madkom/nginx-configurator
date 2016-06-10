@@ -1,0 +1,35 @@
+{
+  "name": "madkom/nginx-configurator",
+  "license": "MIT",
+  "homepage": "http://madkom.pl/",
+  "minimum-stability": "dev",
+  "require": {
+    "madkom/collection": "^1.0",
+    "ferno/loco": "@dev",
+    "madkom/uri": "^1.0"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "^2.5",
+    "phpunit/phpunit": "~4"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:madkom/loco.git"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Madkom\\NginxConfigurator\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Michał Brzuchalski",
+      "email": "m.brzuchalski@madkom.pl"
+    }
+  ],
+  "config": {
+    "bin-dir": "bin/"
+  }
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
+         backupGlobals="false"
+         colors="true"
+        >
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory suffix="Test.php">./tests/phpunit/</directory>
+            <exclude>./vendor</exclude>
+            <exclude>./app</exclude>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <blacklist>
+            <directory suffix=".php">./vendor</directory>
+            <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./bin</directory>
+            <directory suffix=".php">./tests</directory>
+            <file>./var/bootstrap.php.cache</file>
+        </blacklist>
+    </filter>
+    <php>
+        <server name="KERNEL_DIR" value="./app/" />
+    </php>
+
+</phpunit>
