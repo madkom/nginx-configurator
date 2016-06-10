@@ -1,0 +1,25 @@
+language: php
+
+php:
+  - 7.0
+  - nightly
+
+sudo: false
+
+matrix:
+  allow_failures:
+    - php: hhvm
+    - php: nightly
+
+before_install:
+  - composer self-update
+
+install:
+  - composer install --prefer-dist --no-interaction
+
+script:
+  - bin/phpspec run --format=pretty --no-code-generation
+  - bin/phpcov merge --clover tests/coverage/clover.xml tests/coverage
+
+after_success:
+  - travis_retry php bin/coveralls -v
