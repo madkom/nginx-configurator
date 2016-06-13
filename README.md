@@ -17,6 +17,7 @@ PHP Library for NGINX configuration parser/generator
 ## Features
 
 This library can parse and generate NGINX configuration files.
+In near future will provide CLI commands for NGINX configuration.
 
 
 ## Installation
@@ -36,8 +37,6 @@ This library requires *PHP* in `~7` version.
 Parsing configuration string:
 
 ```php
-<?php
-
 use Madkom\NginxConfigurator\Builder;
 use Madkom\NginxConfigurator\Config\Server;
 use Madkom\NginxConfigurator\Parser;
@@ -92,8 +91,6 @@ if (count($defaultServers) > 0) {
 Generating configuration string:
 
 ```php
-<?php
-
 use Madkom\NginxConfigurator\Builder;
 use Madkom\NginxConfigurator\Config\Location;
 use Madkom\NginxConfigurator\Node\Directive;
@@ -105,7 +102,10 @@ require __DIR__ . '/../vendor/autoload.php';
 $builder = new Builder();
 
 $server = $builder->addServerNode(80);
-$server->append(new Directive('error_log', [new Param('/var/log/nginx/error.log'), new Param('debug')]));
+$server->append(new Directive('error_log', [
+    new Param('/var/log/nginx/error.log'), 
+    new Param('debug'),
+]));
 $server->append(new Location(new Param('/test'), null, [
     new Directive('error_page', [new Param('401'), new Param('@unauthorized')]),
     new Directive('set', [new Param('$auth_user'), new Literal('none')]),
@@ -175,7 +175,6 @@ server {
 There are also methods to read and dump file:
 
 ```php
-
 use Madkom\NginxConfigurator\Builder;
 use Madkom\NginxConfigurator\Config\Location;
 use Madkom\NginxConfigurator\Config\Server;
@@ -207,6 +206,7 @@ $builder->dumpFile('generated.conf');
 ## TODO
 
 * [ ] Implement comments parsing
+* [ ] Implement commands for config manipulation from CLI
 
 ## License
 

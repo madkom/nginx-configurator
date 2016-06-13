@@ -10,6 +10,7 @@ namespace Madkom\NginxConfigurator;
 use Madkom\NginxConfigurator\Config\Server;
 use Madkom\NginxConfigurator\Config\Upstream;
 use Madkom\NginxConfigurator\Node\Directive;
+use Madkom\NginxConfigurator\Node\Node;
 use Madkom\NginxConfigurator\Node\Param;
 use Madkom\NginxConfigurator\Node\RootNode;
 
@@ -53,25 +54,14 @@ class Builder
     }
 
     /**
-     * @param Server $server
-     * @return Server
+     * @param Node $node
+     * @return Node
      */
-    public function appendServerNode(Server $server) : Server
+    public function append(Node $node) : Node
     {
-        $this->rootNode->append($server);
+        $this->rootNode->append($node);
 
-        return $server;
-    }
-
-    /**
-     * @param Upstream $upstream
-     * @return Upstream
-     */
-    public function appendUpstreamNode(Upstream $upstream) : Upstream
-    {
-        $this->rootNode->append($upstream);
-
-        return $upstream;
+        return $node;
     }
 
     /**
