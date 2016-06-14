@@ -83,7 +83,7 @@ $builder = new Builder();
 if (count($defaultServers) > 0) {
     /** @var Server $defaultServer */
     foreach ($defaultServers as $defaultServer) {
-        $builder->appendServerNode($defaultServer);
+        $builder->append($defaultServer);
     }
 }
 ```
@@ -91,6 +91,7 @@ if (count($defaultServers) > 0) {
 Generating configuration string:
 
 ```php
+use Madkom\NginxConfigurator\Factory;
 use Madkom\NginxConfigurator\Builder;
 use Madkom\NginxConfigurator\Config\Location;
 use Madkom\NginxConfigurator\Node\Directive;
@@ -99,9 +100,10 @@ use Madkom\NginxConfigurator\Node\Param;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+$factory = new Factory()
 $builder = new Builder();
 
-$server = $builder->addServerNode(80);
+$server = $builder->append($factory->createServer(80));
 $server->append(new Directive('error_log', [
     new Param('/var/log/nginx/error.log'), 
     new Param('debug'),
@@ -196,7 +198,7 @@ $servers = $configuration->search(function (Node $node) {
 if (count($servers) > 0) {
     /** @var Server $server */
     foreach ($servers as $server) {
-        $builder->appendServerNode($server);
+        $builder->append($server);
     }
 }
 
