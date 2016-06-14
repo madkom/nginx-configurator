@@ -165,7 +165,7 @@ class Parser extends Grammar
      * @throws GrammarException
      * @throws UnrecognizedContextException
      */
-    protected function parseSection($section, $space0 = null, $params, $open = null, $space1 = null, $directives) : Context
+    protected function parseSection($section, $space0, $params, $open, $space1, $directives) : Context
     {
         switch ($section) {
             case 'server':

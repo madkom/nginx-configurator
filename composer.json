@@ -6,19 +6,20 @@
   "require": {
     "madkom/collection": "^1.0",
     "ferno/loco": "@dev",
-    "madkom/uri": "^1.0"
+    "madkom/uri": "^1.0",
+    "henrikbjorn/phpspec-code-coverage": "1.*"
   },
   "require-dev": {
     "phpspec/phpspec": "^2.5",
     "phpunit/phpunit": "~4",
     "knplabs/phpspec-welldone-extension": "dev-master",
-    "henrikbjorn/phpspec-code-coverage": "1.0.*",
     "squizlabs/php_codesniffer": "^2.3",
     "phpunit/phpcov": "*",
     "jakub-onderka/php-parallel-lint": "0.*",
     "jakub-onderka/php-console-highlighter": "0.*",
     "satooshi/php-coveralls": "dev-master",
-    "clover/dump": "dev-master"
+    "clover/dump": "dev-master",
+    "symfony/var-dumper": "^3.1"
   },
   "repositories": [
     {

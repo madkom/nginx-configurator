@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<project name="nginx-configurator" default="test">
+    <target name="test" depends="-lint,-phpspec,-phpunit,-phpcs">
+        <exec command="bin/phpcov merge --clover tests/coverage/clover.xml tests/coverage/" checkreturn="true" passthru="true"/>
+        <exec command="bin/coveralls" checkreturn="true" passthru="true"/>
+        <exec command="bin/clover-dump --warning-percentage=70 --error-percentage=50 --fail-at=40 --ansi tests/coverage/clover.xml" checkreturn="true" passthru="true"/>
+        <exec command="bin/phpcov merge --html=tests/coverage/raport tests/coverage/"/>
+    </target>
+    <target name="-lint" hidden="true">
+        <exec command="bin/parallel-lint --exclude app --exclude vendor ." checkreturn="true" passthru="true"/>
+    </target>
+    <target name="-phpunit" hidden="true">
+        <exec command="bin/phpunit --coverage-php tests/coverage/phpunit.cov tests" checkreturn="true" passthru="true"/>
+    </target>
+    <target name="-phpspec" hidden="true">
+        <exec command="bin/phpspec run --format=pretty --no-code-generation" checkreturn="true" passthru="true"/>
+    </target>
+    <target name="-phpcs" hidden="true">
+        <exec command="bin/phpcs --colors -wp src --report=summary --standard=PSR2,phpcs.xml" checkreturn="true" passthru="true"/>
+    </target>
+</project>

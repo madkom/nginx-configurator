@@ -1,5 +1,15 @@
+extensions:
+    - PhpSpec\Extension\CodeCoverageExtension
+    - Knp\PhpSpec\WellDone\Extension
+
 suites:
   types:
     namespace: Madkom\NginxConfigurator
     psr4_prefix: Madkom\NginxConfigurator
     spec_path: tests
+
+code_coverage:
+    output: tests/coverage/phpspec.cov
+    format: php
+
+formatter.name: pretty

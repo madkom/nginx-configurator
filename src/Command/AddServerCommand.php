@@ -49,7 +49,7 @@ class AddServerCommand extends BaseCommand
         $config->append($server);
 
         $builder = new Builder();
-        $builder->appendServerNode($server);
+        $builder->append($server);
         $builder->dumpFile($filename);
     }
 }
