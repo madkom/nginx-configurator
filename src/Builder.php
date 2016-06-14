@@ -9,11 +9,7 @@ namespace Madkom\NginxConfigurator;
 
 use Countable;
 use Madkom\Collection\CustomTypedCollection;
-use Madkom\NginxConfigurator\Config\Server;
-use Madkom\NginxConfigurator\Config\Upstream;
-use Madkom\NginxConfigurator\Node\Directive;
 use Madkom\NginxConfigurator\Node\Node;
-use Madkom\NginxConfigurator\Node\Param;
 use Madkom\NginxConfigurator\Node\RootNode;
 use Traversable;
 
@@ -33,6 +29,14 @@ class Builder implements Countable
      * Builder constructor.
      */
     public function __construct()
+    {
+        $this->clear();
+    }
+
+    /**
+     * Clears builder root node
+     */
+    public function clear()
     {
         $this->rootNode = new RootNode();
     }
