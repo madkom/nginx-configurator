@@ -7,19 +7,22 @@
  */
 namespace Madkom\NginxConfigurator;
 
+use Countable;
+use Madkom\Collection\CustomTypedCollection;
 use Madkom\NginxConfigurator\Config\Server;
 use Madkom\NginxConfigurator\Config\Upstream;
 use Madkom\NginxConfigurator\Node\Directive;
 use Madkom\NginxConfigurator\Node\Node;
 use Madkom\NginxConfigurator\Node\Param;
 use Madkom\NginxConfigurator\Node\RootNode;
+use Traversable;
 
 /**
  * Class Builder
  * @package Madkom\NginxConfigurator
  * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
  */
-class Builder
+class Builder implements Countable
 {
     /**
      * @var RootNode Holds configuration root node
@@ -31,29 +34,11 @@ class Builder
      */
     public function __construct()
     {
-        $this->clear();
-    }
-
-    public function clear()
-    {
         $this->rootNode = new RootNode();
     }
 
     /**
-     * @param int $port
-     * @return Server
-     */
-    public function addServerNode(int $port) : Server
-    {
-        $listenIPv4 = new Directive('listen', [new Param($port)]);
-        $listenIPv6 = new Directive('listen', [new Param("[::]:{$port}"), new Param('default'), new Param('ipv6only=on')]);
-        $httpNode = new Server([$listenIPv4, $listenIPv6]);
-        $this->rootNode->append($httpNode);
-
-        return $httpNode;
-    }
-
-    /**
+     * Append child node
      * @param Node $node
      * @return Node
      */
@@ -62,6 +47,46 @@ class Builder
         $this->rootNode->append($node);
 
         return $node;
+    }
+
+    /**
+     * Remove child node
+     * @param Node $node
+     * @return bool
+     */
+    public function remove(Node $node) : bool
+    {
+        return $this->rootNode->remove($node);
+    }
+
+    /**
+     * Search for specified nodes
+     * @param callable $checker
+     * @return CustomTypedCollection
+     */
+    public function search(callable $checker) : CustomTypedCollection
+    {
+        return $this->rootNode->filter($checker);
+    }
+
+    /**
+     * Count elements of an object
+     * @link http://php.net/manual/en/countable.count.php
+     * @return int The custom count as an integer.
+     */
+    public function count()
+    {
+        return count($this->rootNode);
+    }
+
+    /**
+     * Retrieve an external iterator
+     * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
+     * @return Traversable An instance of an object implementing <b>Iterator</b> or
+     */
+    public function getIterator()
+    {
+        return $this->rootNode->getIterator();
     }
 
     /**

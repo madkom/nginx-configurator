@@ -3,11 +3,15 @@
 namespace spec\Madkom\NginxConfigurator;
 
 use Ferno\Loco\ParseFailureException;
+use Madkom\NginxConfigurator\Config\Http;
 use Madkom\NginxConfigurator\Config\Location;
 use Madkom\NginxConfigurator\Config\Server;
+use Madkom\NginxConfigurator\Config\Upstream;
 use Madkom\NginxConfigurator\Node\Context;
 use Madkom\NginxConfigurator\Node\Directive;
+use Madkom\NginxConfigurator\Node\Literal;
 use Madkom\NginxConfigurator\Node\Node;
+use Madkom\NginxConfigurator\Node\Param;
 use Madkom\NginxConfigurator\Node\RootNode;
 use Madkom\NginxConfigurator\Parser;
 use PhpSpec\ObjectBehavior;
@@ -25,7 +29,7 @@ class ParserSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Madkom\NginxConfigurator\Parser');
+        $this->shouldHaveType(Parser::class);
     }
 
     /**
@@ -182,6 +186,69 @@ EOF
                     break;
 
             }
+        }
+    }
+
+    function it_can_parse_Upstream_and_Http_contexts()
+    {
+        $root = $this->parse(<<<EOF
+http {
+}
+upstream name {
+    internal;
+}
+EOF
+        );
+        $root->shouldReturnAnInstanceOf(RootNode::class);
+
+        $contexts = $root->search(function (Node $node) {
+            return $node;
+        })->getWrappedObject();
+        /** @var Context $context */
+        foreach ($contexts as $index => $context) {
+            switch ($index) {
+                case 0:
+                    Assert::assertInstanceOf(Http::class, $context);
+                    break;
+                case 1:
+                    Assert::assertInstanceOf(Upstream::class, $context);
+                    /** @var Directive $directive */
+                    foreach ($context as $index => $directive) {
+                        switch ($index) {
+                            case 0:
+                                Assert::assertEquals('internal', $directive->getName());
+                                break;
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+
+    /**
+     * @throws ParseFailureException
+     */
+    function it_can_parse_Literal_directive()
+    {
+        /** @var RootNode $root */
+        $root = $this->parse(<<<EOF
+internal "txt";
+EOF
+        );
+        $root->shouldReturnAnInstanceOf(RootNode::class);
+
+        $directives = $root->search(function (Node $node) {
+            return $node;
+        })->getWrappedObject();
+        /** @var Directive $directive */
+        foreach ($directives as $directive) {
+            break;
+        }
+        Assert::assertEquals($directive->getName(), 'internal');
+        Assert::assertInstanceOf(Traversable::class, $directive->getParams());
+        /** @var Param $param */
+        foreach ($directive->getParams() as $param) {
+            Assert::assertInstanceOf(Literal::class, $param);
         }
     }
 }
