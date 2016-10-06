@@ -4,9 +4,9 @@
   "homepage": "http://madkom.pl/",
   "minimum-stability": "dev",
   "require": {
-    "madkom/collection": "^1.0",
+    "madkom/collection": "1.*",
     "ferno/loco": "@dev",
-    "madkom/uri": "^1.0"
+    "madkom/uri": "1.*"
   },
   "require-dev": {
     "henrikbjorn/phpspec-code-coverage": "^2.0.2",
