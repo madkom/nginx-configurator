@@ -8,7 +8,7 @@
 namespace Madkom\NginxConfigurator;
 
 use Countable;
-use Madkom\Collection\CustomTypedCollection;
+use Madkom\NginxConfigurator\Collection\CustomTypedCollection;
 use Madkom\NginxConfigurator\Node\Node;
 use Madkom\NginxConfigurator\Node\RootNode;
 use Traversable;

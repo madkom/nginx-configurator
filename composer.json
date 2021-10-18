@@ -1,24 +1,17 @@
 {
-  "name": "madkom/nginx-configurator",
+  "name": "vihura-com/nginx-configurator",
   "license": "MIT",
   "homepage": "http://madkom.pl/",
   "minimum-stability": "dev",
   "require": {
-    "madkom/collection": "1.*",
-    "ferno/loco": "@dev",
-    "madkom/uri": "1.*"
+    "ferno/loco": "@dev"
   },
   "require-dev": {
-    "henrikbjorn/phpspec-code-coverage": "^2.0.2",
-    "phpspec/phpspec": "^2.5",
-    "phpunit/phpunit": "~4",
     "knplabs/phpspec-welldone-extension": "dev-master",
     "squizlabs/php_codesniffer": "^2.3",
     "phpunit/phpcov": "*",
     "jakub-onderka/php-parallel-lint": "0.*",
     "jakub-onderka/php-console-highlighter": "0.*",
-    "satooshi/php-coveralls": "dev-master",
-    "clover/dump": "dev-master",
     "symfony/var-dumper": "^3.1"
   },
   "repositories": [

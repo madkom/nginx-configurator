@@ -7,7 +7,7 @@
  */
 namespace Madkom\NginxConfigurator\Node;
 
-use Madkom\Collection\CustomTypedCollection;
+use Madkom\NginxConfigurator\Collection\CustomTypedCollection;
 use Traversable;
 
 /**

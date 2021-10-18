@@ -9,7 +9,7 @@ namespace Madkom\NginxConfigurator\Node;
 
 use Countable;
 use IteratorAggregate;
-use Madkom\Collection\CustomTypedCollection;
+use Madkom\NginxConfigurator\Collection\CustomTypedCollection;
 use Traversable;
 
 /**
